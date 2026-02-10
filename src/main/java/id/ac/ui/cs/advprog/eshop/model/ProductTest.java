@@ -30,4 +30,19 @@ class ProductTest {
     void testGetProductQuantity() {
         assertEquals(100, this.product.getProductQuantity());
     }
+
+    @Test
+    void testGetProductIdWrong() {
+        assertNotEquals("wrong-id", this.product.getProductId());
+    }
+
+    @Test
+    void testGetProductNameWrong() {
+        assertNotEquals("Sampo Cap Badak", this.product.getProductName());
+    }
+
+    @Test
+    void testGetProductQuantityWrong() {
+        assertNotEquals(50, this.product.getProductQuantity());
+    }
 }
