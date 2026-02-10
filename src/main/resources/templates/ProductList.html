@@ -16,14 +16,22 @@
         <tr>
             <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product: ${products}">
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
+            <td>
+                <a th:href="@{/product/edit/{id}(id=${product.productId})}"
+                   class="btn btn-warning btn-sm">Edit</a>
+
+                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+            </td>
         </tr>
         </tbody>
+
     </table>
 </div>
 
