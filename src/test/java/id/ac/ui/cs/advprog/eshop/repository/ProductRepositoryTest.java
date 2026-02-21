@@ -141,4 +141,38 @@ class ProductRepositoryTest {
 
         assertNull(result);
     }
+
+    @Test
+    void testFindByIdWithMultipleProducts() {
+        Product product1 = new Product();
+        product1.setProductId("id-1");
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("id-2");
+        productRepository.create(product2);
+
+        Product foundProduct = productRepository.findById("id-2");
+        assertEquals("id-2", foundProduct.getProductId());
+    }
+
+    @Test
+    void testEditWithMultipleProducts() {
+        Product product1 = new Product();
+        product1.setProductId("id-1");
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("id-2");
+        productRepository.create(product2);
+
+        Product editedProduct = new Product();
+        editedProduct.setProductId("id-2");
+        editedProduct.setProductName("Nama Baru");
+
+        productRepository.edit(editedProduct);
+
+        Product savedProduct = productRepository.findById("id-2");
+        assertEquals("Nama Baru", savedProduct.getProductName());
+    }
 }
