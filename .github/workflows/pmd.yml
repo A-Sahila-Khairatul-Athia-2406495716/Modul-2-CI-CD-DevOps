@@ -1,0 +1,23 @@
+name: PMD Analysis
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pmd-analysis:
+    name: Run PMD Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the Git repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java toolchain
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Run PMD Analysis
+        run: ./gradlew pmdMain pmdTest
