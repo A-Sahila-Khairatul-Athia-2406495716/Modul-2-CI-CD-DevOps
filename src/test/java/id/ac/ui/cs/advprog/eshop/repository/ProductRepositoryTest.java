@@ -64,12 +64,13 @@ class ProductRepositoryTest {
         productRepository.create(product2);
 
         Iterator<Product> productIterator = productRepository.findAll();
-        assertTrue(productIterator.hasNext());
-        Product savedProduct = productIterator.next();
-        assertEquals(product1.getProductId(), savedProduct.getProductId());
-        savedProduct = productIterator.next();
-        assertEquals(product2.getProductId(), savedProduct.getProductId());
-        assertFalse(productIterator.hasNext());
+
+        assertAll("Verify all products in repository",
+                () -> assertTrue(productIterator.hasNext(), "Should contain at least one product"),
+                () -> assertEquals(product1.getProductId(), productIterator.next().getProductId(), "First product ID should match"),
+                () -> assertEquals(product2.getProductId(), productIterator.next().getProductId(), "Second product ID should match"),
+                () -> assertFalse(productIterator.hasNext(), "Should not contain more than two products")
+        );
     }
 
     @Test
@@ -81,7 +82,6 @@ class ProductRepositoryTest {
         productRepository.create(product);
 
         Product foundProduct = productRepository.findById(product.getProductId());
-        assertNotNull(foundProduct);
         assertAll("Verify found product",
                 () -> assertNotNull(foundProduct, "Product should be found"),
                 () -> assertEquals(product.getProductId(), foundProduct.getProductId(), "Found product ID should match")
@@ -112,9 +112,11 @@ class ProductRepositoryTest {
 
         // verify
         Product savedProduct = productRepository.findById(product.getProductId());
-        assertNotNull(savedProduct);
-        assertEquals("Sampo Cap Bambang Baru", savedProduct.getProductName());
-        assertEquals(50, savedProduct.getProductQuantity());
+        assertAll("Verify product edit details",
+                () -> assertNotNull(savedProduct, "Product should still exist after edit"),
+                () -> assertEquals("Sampo Cap Bambang Baru", savedProduct.getProductName(), "Product name should be updated"),
+                () -> assertEquals(50, savedProduct.getProductQuantity(), "Product quantity should be updated")
+        );
     }
 
     @Test
