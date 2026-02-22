@@ -62,20 +62,20 @@ class ProductServiceImplTest {
     void testFindById() {
         when(productRepository.findById(PRODUCT_ID)).thenReturn(product);
         Product found = productService.findById(PRODUCT_ID);
-        assertEquals(product.getProductId(), found.getProductId());
+        assertEquals(product.getProductId(), found.getProductId(), "Found product ID should match");
     }
 
     @Test
     void testEdit() {
         when(productRepository.edit(product)).thenReturn(product);
         Product edited = productService.edit(product);
-        assertEquals(product.getProductName(), edited.getProductName());
+        assertEquals(product.getProductName(), edited.getProductName(), "Edited product name should match");
     }
 
     @Test
     void testDelete() {
         when(productRepository.delete(PRODUCT_ID)).thenReturn(product);
         Product deleted = productService.delete(PRODUCT_ID);
-        assertEquals(product.getProductId(), deleted.getProductId());
+        assertEquals(product.getProductId(), deleted.getProductId(), "Deleted product ID should match");
     }
 }

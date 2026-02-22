@@ -18,31 +18,31 @@ class ProductTest {
 
     @Test
     void testGetProductId() {
-        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", this.product.getProductId());
+        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", this.product.getProductId(), "Product ID should match the set value");
     }
 
     @Test
     void testGetProductName() {
-        assertEquals("Sampo Cap Bambang", this.product.getProductName());
+        assertEquals("Sampo Cap Bambang", this.product.getProductName(), "Product name should match the set value");
     }
 
     @Test
     void testGetProductQuantity() {
-        assertEquals(100, this.product.getProductQuantity());
+        assertEquals(100, this.product.getProductQuantity(), "Product quantity should match the set value");
     }
 
     @Test
     void testGetProductIdWrong() {
-        assertNotEquals("wrong-id", this.product.getProductId());
+        assertNotEquals("wrong-id", this.product.getProductId(), "Product ID should match the set value");
     }
 
     @Test
     void testGetProductNameWrong() {
-        assertNotEquals("Sampo Cap Badak", this.product.getProductName());
+        assertNotEquals("Sampo Cap Badak", this.product.getProductName(), "Product name should match the set value");
     }
 
     @Test
     void testGetProductQuantityWrong() {
-        assertNotEquals(50, this.product.getProductQuantity());
+        assertNotEquals(50, this.product.getProductQuantity(), "Product quantity should match the set value");
     }
 }
