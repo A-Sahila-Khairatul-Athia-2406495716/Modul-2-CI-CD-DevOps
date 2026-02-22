@@ -36,9 +36,11 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
         Product savedProduct = productIterator.next();
-        assertEquals(product.getProductId(), savedProduct.getProductId());
-        assertEquals(product.getProductName(), savedProduct.getProductName());
-        assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+        assertAll("Verify product properties",
+                () -> assertEquals(product.getProductId(), savedProduct.getProductId(), "Product ID should match"),
+                () -> assertEquals(product.getProductName(), savedProduct.getProductName(), "Product name should match"),
+                () -> assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity(), "Product quantity should match")
+        );
     }
 
     @Test
@@ -80,8 +82,10 @@ class ProductRepositoryTest {
 
         Product foundProduct = productRepository.findById(product.getProductId());
         assertNotNull(foundProduct);
-        assertEquals(product.getProductId(), foundProduct.getProductId());
-        assertEquals(product.getProductName(), foundProduct.getProductName());
+        assertAll("Verify found product",
+                () -> assertNotNull(foundProduct, "Product should be found"),
+                () -> assertEquals(product.getProductId(), foundProduct.getProductId(), "Found product ID should match")
+        );
     }
 
     @Test

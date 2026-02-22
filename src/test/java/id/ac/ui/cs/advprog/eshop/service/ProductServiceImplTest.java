@@ -41,8 +41,10 @@ class ProductServiceImplTest {
     void testCreate() {
         when(productRepository.create(product)).thenReturn(product);
         Product created = productService.create(product);
-        assertEquals(product.getProductId(), created.getProductId());
-        verify(productRepository, times(1)).create(product);
+        assertAll("Verify product creation",
+                () -> assertEquals(product.getProductId(), created.getProductId(), "Created product ID should match"),
+                () -> verify(productRepository, times(1)).create(product)
+        );
     }
 
     @Test
@@ -50,8 +52,10 @@ class ProductServiceImplTest {
         Iterator<Product> iterator = Arrays.asList(product).iterator();
         when(productRepository.findAll()).thenReturn(iterator);
         List<Product> allProducts = productService.findAll();
-        assertFalse(allProducts.isEmpty());
-        assertEquals(1, allProducts.size());
+        assertAll("Verify all products list",
+                () -> assertFalse(allProducts.isEmpty(), "Product list should not be empty"),
+                () -> assertEquals(1, allProducts.size(), "Product list should have exactly 1 product")
+        );
     }
 
     @Test
