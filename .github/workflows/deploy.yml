@@ -1,0 +1,28 @@
+name: Koyeb Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Koyeb
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install and configure the Koyeb CLI
+        uses: koyeb/action-setup@v1
+        with:
+          api_token: ${{ secrets.KOYEB_API_TOKEN }}
+
+      - name: Deploy to Koyeb
+        uses: koyeb/action-git-deploy@v1
+        with:
+          app-name: "eshop"
+          service-name: "eshop-web"
+          git-branch: "main"
+          service-ports: "8080:http"
+          service-routes: "/:8080"
