@@ -35,13 +35,14 @@ class ProductRepositoryTest {
         productRepository.create(product);
 
         Iterator<Product> productIterator = productRepository.findAll();
-        assertTrue(productIterator.hasNext(), "Repository should not be empty after creating a product");
-        Product savedProduct = productIterator.next();
-        assertAll("Verify product properties",
-
-                () -> assertEquals(product.getProductId(), savedProduct.getProductId(), "Product ID should match"),
-                () -> assertEquals(product.getProductName(), savedProduct.getProductName(), "Product name should match"),
-                () -> assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity(), "Product quantity should match")
+        assertAll("Verify product creation and properties",
+                () -> assertTrue(productIterator.hasNext(), "Repository should not be empty after creating a product"),
+                () -> {
+                    Product savedProduct = productIterator.next();
+                    assertEquals(product.getProductId(), savedProduct.getProductId(), "Product ID should match");
+                    assertEquals(product.getProductName(), savedProduct.getProductName(), "Product name should match");
+                    assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity(), "Product quantity should match");
+                }
         );
     }
 
