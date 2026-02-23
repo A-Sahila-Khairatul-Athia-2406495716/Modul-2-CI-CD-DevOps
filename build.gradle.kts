@@ -84,3 +84,7 @@ pmd {
     isIgnoreFailures = true
     ruleSets = listOf("category/java/errorprone.xml", "category/java/bestpractices.xml")
 }
+
+tasks.named<Pmd>("pmdTest") {
+    exclude("**/*FunctionalTest.java")
+}
