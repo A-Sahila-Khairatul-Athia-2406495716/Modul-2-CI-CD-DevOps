@@ -51,17 +51,6 @@ class ProductControllerTest {
     }
 
     @Test
-    void testCreateProductPostWithNullId() {
-        product.setProductId(null);
-        String viewName = productController.createProductPost(product, model);
-
-        assertAll("Verify create product post with null ID",
-                () -> assertEquals("redirect:list", viewName, "Should redirect to list after creation"),
-                () -> assertNotNull(product.getProductId(), "Product ID should be generated if null")
-        );
-    }
-
-    @Test
     void testCreateProductPostWithExistingId() {
         String viewName = productController.createProductPost(product, model);
 

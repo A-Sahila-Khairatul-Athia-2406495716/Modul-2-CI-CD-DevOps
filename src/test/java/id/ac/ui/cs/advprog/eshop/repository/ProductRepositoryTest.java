@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
 
@@ -39,6 +38,7 @@ class ProductRepositoryTest {
         assertTrue(productIterator.hasNext(), "Repository should not be empty after creating a product");
         Product savedProduct = productIterator.next();
         assertAll("Verify product properties",
+
                 () -> assertEquals(product.getProductId(), savedProduct.getProductId(), "Product ID should match"),
                 () -> assertEquals(product.getProductName(), savedProduct.getProductName(), "Product name should match"),
                 () -> assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity(), "Product quantity should match")
@@ -185,5 +185,28 @@ class ProductRepositoryTest {
 
         Product savedProduct = productRepository.findById(PRODUCT_ID2);
         assertEquals(PRODUCT_NAME2, savedProduct.getProductName(), "Product name should be updated correctly");
+    }
+
+    @Test
+    void testCreateWithNullId() {
+        Product product = new Product();
+        product.setProductName(PRODUCT_NAME1);
+        product.setProductQuantity(100);
+
+        productRepository.create(product);
+
+        assertNotNull(product.getProductId(), "Product ID should be generated");
+    }
+
+    @Test
+    void testCreateWithEmptyId() {
+        Product product = new Product();
+        product.setProductId("");
+        product.setProductName(PRODUCT_NAME2);
+        product.setProductQuantity(50);
+
+        productRepository.create(product);
+
+        assertFalse(product.getProductId().isEmpty(), "Product ID should not be empty");
     }
 }
