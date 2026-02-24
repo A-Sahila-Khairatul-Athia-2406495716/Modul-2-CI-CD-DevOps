@@ -33,9 +33,8 @@ https://eshop-advprog-sahilaathia.koyeb.app/
 - Saran improvement adalah menerapkan prinsip DRY (Don't Repeat Yourself) dengan membuat sebuah base class yang menampung prosedur setup umum, sehingga test class lainnya cukup inherit dari base class tersebut.
 </details>
 
-<summary><b>Module 02 - CI/CD & DevOps</b></summary>
 
-[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?name=eshop&type=git&repository=A-Sahila-Khairatul-Athia-2406495716%2FModul-2-CI-CD-DevOps&branch=main&builder=dockerfile&instance_type=free&regions=was&instances_min=0&autoscaling_sleep_idle_delay=3900&ports=8080%3Bhttp%3B%2F&hc_protocol%5B8080%5D=tcp&hc_grace_period%5B8080%5D=5&hc_interval%5B8080%5D=30&hc_restart_limit%5B8080%5D=3&hc_timeout%5B8080%5D=5&hc_path%5B8080%5D=%2F&hc_method%5B8080%5D=get)
+<details><summary><b>Module 02 - CI/CD & DevOps</b></summary>
 
 # Reflection
 
@@ -49,5 +48,13 @@ Setelah melakukan analisis menggunakan tool PMD, saya menemukan dan memperbaiki 
 
 ### 2. Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment?
 
+Menurut saya, implementasi CI/CD workflows pada repositori ini sudah memenuhi definisi Continuous Integration (CI) dan Continuous Deployment (CD) karena:
 
+- Continuous Integration (CI): Setiap kali ada push atau pull request, GitHub Actions secara otomatis menjalankan workflow `ci.yml` untuk unit test, `pmd.yml` untuk analisis kualitas kode, serta `scorecard.yml` untuk security scanning, sehingga proses pengecekan dilakukan secara terus-menerus (continuous) dan menyatu dalam satu alur otomatis sebelum perubahan di-merge ke main branch (integration).
+
+- Continuous Deployment (CD): Melalui integrasi antara `Dockerfile` dan workflow `deploy.yml`, setiap perubahan kode yang di-push ke repository akan secara otomatis membangun Docker image dan mengirimkannya ke PaaS Koyeb menggunakan approach push-based deployment. Hal ini memastikan proses merilis versi terbaru aplikasi dilakukan secara otomatis dan berkelanjutan (continuous) serta langsung menerapkan perubahan kode ke production environment  tanpa proses manual (deployment).
+
+Kedua alur ini membentuk pipeline otomatis yang menjamin setiap perubahan kode terintegrasi dan tervalidasi dengan baik serta memastikan bahwa versi terbaru aplikasi selalu ter-deploy secara konsisten. Dengan demikian, main branch akan selalu berada dalam kondisi stabil, teruji, dan siap digunakan.
+
+</details>
 
